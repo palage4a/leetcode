@@ -14,8 +14,10 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 		h.Val = l1.Val
 		if l1.Next != nil {
 			h.Next = mergeTwoLists(l1.Next, l2)
-		} else {
+		} else if l2.Next == nil {
 			h.Next = &ListNode{l2.Val, nil}
+		} else {
+			h.Next = mergeTwoLists(l2.Next, h)
 		}
 	}
 
@@ -23,8 +25,10 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 		h.Val = l2.Val
 		if l2.Next != nil {
 			h.Next = mergeTwoLists(l1, l2.Next)
-		} else {
+		} else if l1.Next == nil {
 			h.Next = &ListNode{l1.Val, nil}
+		} else {
+			h.Next = mergeTwoLists(l1.Next, h)
 		}
 	}
 
